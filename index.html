@@ -1,5 +1,59 @@
 <!DOCTYPE html>
-<body>
+<html lang="en">
+<meta charset="utf-8">
+
+<link rel="stylesheet" href="https://unpkg.com/tachyons/css/tachyons.min.css">
+
+<body style="background-color:sandybrown;">
+
+<main>
+
+<article class="mw7 center ph3 ph5-ns tc br2 pv5 bg-washed-green bg-dark-red mb5">
+	<h1 class="fw6 f3 f2-ns lh-title mt0 mb3">Dashboard for Arizona Soil Area Characteristics and Flash Floods</h1>
+	<p class="fw2 f4 lh-copy mt0 mb3">David Harper</p>
+	</article>
+
+<h2 class="fw4 f3 f2-ns lh-title mt0 mb3">Instructions:</h2>
+
+	<p class="fw2 f4 lh-copy mt0 mb3">1. Select which region to look at and which variable to be displayed.</p>
+		<p class="fw1 f5 mt0 mb3">&emsp;a. Select region by using the area selection drop down.</p>
+		<p class="fw1 f5 mt0 mb3">&emsp;b. Click on a region on the map.</p>
+		<p class="fw1 f5 mt0 mb3">&emsp;c. Select variable using the variable selection drop down.</p>
+	<p class="fw2 f4 lh-copy mt0 mb3">2. Zoom into a selected region.</p>
+		<p class="fw1 f5 mt0 mb3">&emsp;a. Use the zoom in / zoom out button.</p>
+		<p class="fw1 f5 mt0 mb3">&emsp;b. Click on the selected region.</p>
+		<p class="fw1 f5 mt0 mb3">&emsp;c. Double click on a region when initially selecting.</p>
+	<p class="fw2 f4 lh-copy mt0 mb3">3. View region and area information.</p>
+		<p class="fw1 f5 mt0 mb3">&emsp;a. When hovering over an Arizona region, a text window will pop up showing the region name and the number of flash floods since August 2017.</p>
+		<p class="fw1 f5 mt0 mb3">&emsp;b. When hovering over a soil area while zoomed into a selected region, a text window will pop up showing the soil area name.</p>
+	
+
+<p class="fw1 f5 lh-title mt0 mb3">Area Selection Drop Down</p>	
+<div id="area_button"></div>
+<p class="fw1 f5 lh-title mt0 mb3">Variable Selection Drop Down</p>
+<div id="field_button"></div>
+<div id="zoom_button"></div>
+<div id="my_chart" style="width: 75%;"></div>
+
+
+<h2 class="fw4 f3 f2-ns lh-title mt0 mb3">Resources and Attribution:</h2>
+<p class="fw2 f4 lh-copy mt0 mb3">My source <a href="https://observablehq.com/@harperd17/arizona-soil-feature-and-flash-flood-dashboard">observable notebook</a> is inspired by
+and makes use of the architecture from the following observale notebooks:</p>
+<p class="fw1 f5 mt0 mb3">&emsp;1. <a href="https://observablehq.com/@d3/zoom-to-bounding-box">Zoom To Bounding Box</a> by Mike Bostock</p>
+<p class="fw1 f5 mt0 mb3">&emsp;2. <a href="https://observablehq.com/@d3/choropleth">Choropleth</a> by Mike Bostock</p>
+
+<p class="fw2 f4 lh-copy mt0 mb3">My source observable notebook also made use of the following imports and notebook examples:</p>
+<p class="fw1 f5 mt0 mb3">&emsp;1. <a href="https://d3js.org/">D3</a> import</p>
+<p class="fw1 f5 mt0 mb3">&emsp;2. Import from Mike Bostock's <a href="https://observablehq.com/@observablehq/inputs"> Observable Inputs</a> notebook</p>
+<p class="fw1 f5 mt0 mb3">&emsp;3. Used examples from Mike Bostock's D3 <a href="https://observablehq.com/@d3/color-legend">Color Legend</a> notebook</p>
+<p class="fw1 f5 mt0 mb3">&emsp;4. Import from Jeremy Ashkenas' <a href="https://observablehq.com/@jashkenas/inputs">Inputs Notebook</a></p>
+
+<p class="fw2 f4 lh-copy mt0 mb3">CSS styling uses <a href="http://tachyons.io/gallery/">Tachyons</a></p>
+
+
+</main>
+
+
 <script type="module">
 
 // Load the Observable runtime and inspector.
@@ -10,6 +64,53 @@ import notebook from "https://api.observablehq.com/@harperd17/arizona-soil-featu
 
 // Load the notebook, observing its cells with a default Inspector
 // that simply renders the value of each cell into the provided DOM node.
-new Runtime().module(notebook, Inspector.into(document.body));
+//new Runtime().module(notebook, Inspector.into(document.body));
+//--------------------------------------------first cell--------------------------
+//<div id="zoom_button" class="f6 link dim br3 ph3 pv2 mb2 dib white bg-mid-gray" href="#0"></div>
+new Runtime().module(notebook, name => {
+  
+  if (name === "viewof chosen_area_view") {
+    return new Inspector(document.querySelector("#area_button"));
+  }
+
+if (name === "viewof chosen_field") {
+    return new Inspector(document.querySelector("#field_button"));
+  }
+
+if (name === "viewof toggle") {
+    return new Inspector(document.querySelector("#zoom_button"));
+  }
+if (name === "button_label"){
+return true;
+}
+if (name === "initial_setup") {
+    //return new Inspector(document.querySelector("#setup"));
+return true;
+  }
+if (name === "area_changes") {
+    //return new Inspector(document.querySelector("#area_stuff"));
+return true;  
+}
+if (name === "button_changes") {
+    //return new Inspector(document.querySelector("#button_stuff"));
+return true;  
+}
+if (name === "button_increment") {
+    //return new Inspector(document.querySelector("#button_increment"));
+return true;  
+}
+if (name === "field_changes") {
+    //return new Inspector(document.querySelector("#field_stuff"));
+return true;  
+}
+ 
+if (name === "chart") {
+    return new Inspector(document.querySelector("#my_chart"));
+  }
+  
+
+});
+
+
 
 </script>
